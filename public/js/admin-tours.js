@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            console.log('Formulario enviado');
             const formData = new FormData(form);
 
             // Convierte startDates a array de fechas completas

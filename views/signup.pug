@@ -1,0 +1,21 @@
+extends base
+
+block content
+  main.principal
+    .formulario-login
+      h2.encabezado-secundario.mb-grande Regístrate en MCS Tours
+      form.form#form-signup
+        .grupo-formulario
+          label.etiqueta-formulario(for='name') Nombre
+          input#name.entrada-formulario(type='text', placeholder='Tu nombre', required)
+        .grupo-formulario
+          label.etiqueta-formulario(for='email') Correo electrónico
+          input#email.entrada-formulario(type='email', placeholder='tu@email.com', required)
+        .grupo-formulario
+          label.etiqueta-formulario(for='password') Contraseña
+          input#password.entrada-formulario(type='password', placeholder='********', required, minlength='8')
+        .grupo-formulario
+          label.etiqueta-formulario(for='passwordConfirm') Confirmar contraseña
+          input#passwordConfirm.entrada-formulario(type='password', placeholder='********', required, minlength='8')
+        .grupo-formulario
+          button.boton.boton--azul(type='submit') Registrarse

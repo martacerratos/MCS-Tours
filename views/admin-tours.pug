@@ -1,0 +1,23 @@
+extends base
+block head
+  link(rel='stylesheet', href='/css/admin-tours.css')
+block content
+  main.main
+    h2.heading-secondary.mb-grande Gestión de excursiones
+    a.btn.btn--green(href='/add-tour') Añadir nueva excursión
+    table
+      thead
+        tr
+          th Nombre
+          th Precio
+          th Dificultad
+          th Acciones
+      tbody
+        each tour in tours
+          tr
+            td= tour.name
+            td= tour.price
+            td= tour.difficulty
+            td
+              a.btn.btn--azul.btn--pequeno(href=`/tour/${tour.slug}`) Ver
+              button.btn.btn--rojo.btn--pequeno.delete-tour(data-id=tour._id) Borrar

@@ -1,0 +1,46 @@
+extends base
+block head
+  link(rel='stylesheet', href='/css/addTour.css')
+block content 
+  form.form(method='POST', action='/api/v1/tours', enctype='multipart/form-data')
+    .form__group
+      label(for='name') Nombre
+      input(type='text', name='name', required)
+    .form__group
+      label(for='duration') Duración
+      input(type='number', name='duration', required)
+    .form__group
+      label(for='maxGroupSize') Tamaño máximo
+      input(type='number', name='maxGroupSize', required)
+    .form__group
+      label(for='difficulty') Dificultad
+      select(name='difficulty', required)
+        option(value='easy') Fácil
+        option(value='medium') Media
+        option(value='difficult') Difícil
+    .form__group
+      label(for='price') Precio
+      input(type='number', name='price', required)
+    .form__group
+      label(for='summary') Resumen
+      textarea(name='summary', required)
+    .form__group
+      label(for='description') Descripción
+      textarea(name='description')
+    .form__group
+      label(for='imageCover') Imagen de portada
+      input(type='file', name='imageCover', accept='image/*', required)
+    .form__group
+      label(for='images') Imágenes adicionales
+      input(type='file', name='images', accept='image/*', multiple)
+    .form__group
+      label(for='guides') Guías
+      select(name='guides', multiple)
+        each user in users
+          if user.role === 'guide' || user.role === 'lead-guide'
+            option(value=user._id)= user.name
+    .form__group
+      label(for='startDates') Fechas de inicio (YYYY-MM-DD)
+      input(type='text', name='startDates')
+    .form__group.right
+      button(type='submit') Añadir tour

@@ -1,0 +1,15 @@
+extends base
+
+block content
+    main.principal 
+        .formulario-login 
+            h2.encabezado-secundario.mb-grande Inicia sesión en tu cuenta
+            form.form 
+                .grupo-formulario 
+                    label.etiqueta-formulario(for='email') Correo electrónico
+                    input#email.entrada-formulario(type='email' placeholder='tu@email.com' required)
+                .grupo-formulario.mb-mediano 
+                    label.etiqueta-formulario(for='password') Contraseña
+                    input#password.entrada-formulario(type='password' placeholder='********' required minLength='8')
+                .grupo-formulario 
+                    button.boton.boton--azul Iniciar sesión

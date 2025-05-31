@@ -1,0 +1,61 @@
+extends base
+
+
+mixin navItem(link, text, icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      img(src=`/img/icons/${icon}.png`, alt=`${text} icon`, style='width:1.2rem;height:1.2rem;margin-right:0.5rem;')
+      | #{text}
+
+block content
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('#', 'Ajustes', 'ajustes', true)
+          +navItem('/my-tours', 'Mis reservas', 'reserva')
+          +navItem('#', 'Mis reseñas', 'reseñas')
+
+        - if (user.role === 'admin')
+          .admin-nav
+            h5.admin-nav__heading Administración
+            ul.side-nav
+              +navItem('/admin-tours', 'Excursiones', 'admin-tours')
+              +navItem('#', 'Usuarios', 'admin-users')
+              +navItem('#', 'Reseñas', 'admin-reviews')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Ajustes de cuenta
+          
+          form.form.form-user-data
+            .form__group
+              label.form__label(for='name') Nombre
+              input#name.form__input(type='text', value=`${user.name}`, required, name='name')
+            .form__group.ma-bt-md
+              label.form__label(for='email') Correo electrónico
+              input#email.form__input(type='email', value=`${user.email}`, required, name='email')
+            .form__group.form__photo-upload
+              img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
+              input.form__upload(type='file', id='photo', name='photo', accept='image/*')
+              label(for='photo') Elegir nueva imagen de perfil
+              
+            .form__group.right
+              button.btn.btn--small.btn--green Guardar ajustes
+              
+        .line &nbsp;
+        
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Cambio de contraseña
+          form.form.form-user-password
+            .form__group
+              label.form__label(for='password-current') Contraseña actual
+              input#password-current.form__input(type='password', placeholder='••••••••', required, minlength='8')
+            .form__group
+              label.form__label(for='password') Contraseña nueva
+              input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+            .form__group.ma-bt-lg
+              label.form__label(for='password-confirm') Confirma contraseña nueva
+              input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
+            .form__group.right
+              button.btn.btn--small.btn--green.btn--save-password Actualizar contraseña

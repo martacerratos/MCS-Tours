@@ -1,0 +1,30 @@
+doctype html
+html 
+    head 
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet' href='/css/style.css')
+        link(rel='shortcut icon' type='image/png' href='/img/logo.png')
+        title MCS Tours 
+
+        //- Bloque para permitir que otros archivos agreguen contenido al head
+        block head
+    body
+        include _header.pug
+        
+        // CONTENIDO 
+        block content
+
+        // FOOTER        
+        include _footer.pug
+
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.9.0/axios.min.js')
+        script(type='module' src='/js/login.js')
+        script(type='module' src='/js/alerts.js')
+        script(type='module' src='/js/updateSettings.js')
+        script(src='/js/signup.js')
+        script(src='https://js.stripe.com/v3/')
+        script(type='module' src='/js/stripe.js')
+        script(type='module', src='/js/signup.js')
+        script(type='module', src='/js/admin-tours.js')
+        block scripts

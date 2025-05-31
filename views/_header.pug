@@ -1,0 +1,15 @@
+header.header
+    // nav con dos clases
+    nav.navegacion.navegacion--tours
+        a.navegacion__el(href='/') Todos los tours
+    .header-logo
+        img(src='/img/logo.png', alt='Logo de la empresa MCS Tours')
+    nav.navegacion.navegacion--usuario
+        if user
+            a.navegacion__el.nav-el-logout Cerrar sesión
+            a.navegacion__el(href='/me')
+                img.nav-user-img(src=`/img/users/${user.photo}`, alt=`Foto de ${user.name}`)
+                span= user.name.split(' ')[0]
+        else
+            a.navegacion__el(href='/login') Iniciar sesión
+            a.navegacion__el.navegacion__el--cta(href='/signup') Registrarse

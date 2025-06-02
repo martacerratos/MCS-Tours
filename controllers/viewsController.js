@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
+// Obtiene todos los tours y renderiza la vista de overview
 exports.getOverview = catchAsync(async (req, res) => {
     const tours = await Tour.find();
 
@@ -13,6 +14,7 @@ exports.getOverview = catchAsync(async (req, res) => {
     });
 });
 
+// Busca un tour por su slug y renderiza la vista del tour
 exports.getTour = catchAsync(async (req, res, next) => {
     // Obtener los datos del tour que se pide (con sus reseñas y guías)
     const tour = await Tour.findOne({ slug: req.params.slug }).populate({
@@ -32,13 +34,14 @@ exports.getTour = catchAsync(async (req, res, next) => {
     });
 });
 
-
+// Renderiza la vista de inicio de sesión
 exports.getLoginForm = (req, res) => {
     res.status(200).render('login', {
         title: 'Inicia sesion en tu cuenta'
     });
 }
 
+// Muestra la vista con la información personal del usuario autenticado
 exports.getAccount = (req, res) => {
     res.status(200).render('account', {
         title: 'Tu cuenta',
@@ -46,12 +49,14 @@ exports.getAccount = (req, res) => {
     });
 }
 
+// Renderiza el formulario de registro de nuevo usuarios
 exports.getSignupForm = (req, res) => {
     res.status(200).render('signup', {
         title: 'Regístrate en tu cuenta'
     });
 };
 
+// Busca los tours reservados por el usuario autenticado y renderiza la vista de los tours reservados
 exports.getMyTours = catchAsync(async (req, res, next) => {
     const bookings = await Booking.find({ user: req.user.id });
     const tourIDs = bookings.map(el => el.tour);
@@ -63,6 +68,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
     });
 });
 
+// Renderiza el formulario para añadir un nuevo tour
 exports.getAddTourForm = catchAsync(async (req, res) => {
     const users = await User.find({ role: { $in: ['guide', 'lead-guide'] } });
     res.status(200).render('addTour', {
@@ -72,6 +78,7 @@ exports.getAddTourForm = catchAsync(async (req, res) => {
     });
 });
 
+// Renderiza la vista de gestión de tours para administradores
 exports.getAdminTours = catchAsync(async (req, res) => {
     const tours = await Tour.find();
     res.status(200).render('admin-tours', {

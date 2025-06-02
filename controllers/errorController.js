@@ -112,19 +112,16 @@ module.exports = (err, req, res, next) => {
 };
 
 module.exports = (err, req, res, next) => {
-  // ...existing code...
   let error = { ...err };
   error.message = err.message;
 
   // Manejo de errores JWT
   if (err.name === 'JsonWebTokenError') error = handleJWTError();
 
-  // ...existing code...
   if (error.isOperational) {
     return res.status(error.statusCode).render('error', {
       title: 'Algo fue mal',
       msg: error.message
     });
   }
-  // ...existing code...
 };

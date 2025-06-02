@@ -4,7 +4,7 @@ const login = async (email, password) => {
     try {
         const res = await axios({
             method: 'POST',
-            url: 'api/v1/users/login', // url que tengo en el login de Postman
+            url: '/api/v1/users/login', // url que tengo en el login de Postman
             data: { // lo que le voy a enviar al servidor
                 email,
                 password
@@ -31,7 +31,7 @@ const logout = async () => {
     try {
         const res = await axios({
             method: 'GET',
-            url: '/api/v1/users/logout', // url que tengo en el logout de Postman
+            url: 'http://localhost:3000/api/v1/users/logout', // url que tengo en el logout de Postman
         });
 
         if (res.data.status === 'success') {
@@ -44,17 +44,14 @@ const logout = async () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.form');
-    const emailInput = document.querySelector('#email');
-    const passwordInput = document.querySelector('#password');
-    if (form && emailInput && passwordInput) {
+    if (form) {
         form.addEventListener('submit', e => {
             e.preventDefault();
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            login(email, password);
+            const email = document.querySelector('#email').value; // cojo el valor introducido en el campo de email
+            const password = document.querySelector('#password').value; // cojo el valor introducido en el campo de password
+            login(email, password); // llamo a la función login y le paso los valores de email y password
         });
     }
-    // ...logout code...
 });
 
 // AÑADO FUNCION DE LOGOUT A SU BOTON

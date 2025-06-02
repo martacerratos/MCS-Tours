@@ -13,11 +13,13 @@ block content
           th Dificultad
           th Acciones
       tbody
-        each tour in tours
-          tr
-            td= tour.name
-            td= tour.price
-            td= tour.difficulty
-            td
-              a.btn.btn--azul.btn--pequeno(href=`/tour/${tour.slug}`) Ver
-              button.btn.btn--rojo.btn--pequeno.delete-tour(data-id=tour._id) Borrar
+      each tour in tours
+        tr
+          td= tour.name
+          td= tour.price
+          td
+            - const dificultadES = tour.difficulty === 'easy' ? 'Fácil' : tour.difficulty === 'medium' ? 'Media' : tour.difficulty === 'difficult' ? 'Difícil' : tour.difficulty
+            = dificultadES
+          td
+            a.btn.btn--azul.btn--pequeno(href=`/tour/${tour.slug}`) Ver
+            button.btn.btn--rojo.btn--pequeno.delete-tour(data-id=tour._id) Borrar

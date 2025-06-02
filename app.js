@@ -17,22 +17,25 @@ const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
+// Crear una instancia de express, para definir rutas, middlewares, etc.
 const app = express();
 
+// Permite que el frontend y el backend se comuniquen
 app.use(cors({
-  origin: 'http://localhost:3000', 
-  credentials: true 
+  origin: 'http://localhost:3000',
+  credentials: true // Permite el envío de cookies entre dominios
 }));
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views')); // de aqui servira los archivos de las vistas
+app.set('view engine', 'pug'); // Uso Pug como motor de plantillas
+app.set('views', path.join(__dirname, 'views')); // Servira los archivos de las vistas
 
 // MIDDLEWARES GLOBALES
-app.use(express.static(path.join(__dirname, 'public'))); // de aqui servira los archivos estaticos
+app.use(express.static(path.join(__dirname, 'public'))); // Servira los archivos estaticos
 
 // Hace que las cabeceras de la respuesta HTTP sean más seguras
 app.use(helmet());
 
+// Muestra en consola las peticiones HTTP
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -55,7 +58,6 @@ app.use(mongoSanitize());
 // Protege de XSS
 app.use(xss());
 
-
 // RUTAS
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
@@ -63,6 +65,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
+// Se lanza un error si la URL no existe
 app.all('*', (req, res, next) => {
   next(new AppError(`No existe la url: ${req.originalUrl}`, 404));
 });

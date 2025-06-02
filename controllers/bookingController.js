@@ -18,14 +18,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
         cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
         customer_email: req.user.email,
         client_reference_id: req.params.tourId,
-        line_items: [ 
-        {
+        line_items: [
+            {
                 price_data: {
                     currency: 'usd',
                     product_data: {
                         name: `${tour.name} Tour`,
                         description: tour.summary,
-                        images: [`${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`],
+                        images: [`https://${req.get('host')}/img/tours/${tour.imageCover}`],
                     },
                     unit_amount: tour.price * 100, // El precio debe estar en centimos
                 },

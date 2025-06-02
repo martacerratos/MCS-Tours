@@ -20,11 +20,24 @@ const viewRouter = require('./routes/viewRoutes');
 // Crear una instancia de express, para definir rutas, middlewares, etc.
 const app = express();
 
-// Permite que el frontend y el backend se comuniquen
+////////////////////////////////////////
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://mcs-tours-production.up.railway.app' // pon aquí tu dominio real de Railway
+];
+
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true // Permite el envío de cookies entre dominios
+  origin: function (origin, callback) {
+    // Permite peticiones sin origen (como Postman) o desde los orígenes permitidos
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true
 }));
+/////////////////////////////////////////////////
 
 app.set('view engine', 'pug'); // Uso Pug como motor de plantillas
 app.set('views', path.join(__dirname, 'views')); // Servira los archivos de las vistas

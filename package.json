@@ -4,7 +4,7 @@
   "description": "Trabajo de fin de curso",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "debug": "ndb server.js"
   },
   "author": "Marta Cerratos Sanchez",

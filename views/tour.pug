@@ -59,7 +59,6 @@ block content
           class=`picture-box__img--${i + 1}`
         )
 
-
   section.section-reviews
     .reviews
       each review in tour.reviews
@@ -73,8 +72,36 @@ block content
           p.review-card__text= review.review
 
   section.section-cta
-    .cta__content
-      if user
+  .cta__content
+    if user
+      .comentario-box
+        form#form-add-comment(method='POST', action=`/api/v1/reviews/${tour.id}`)
+          .form__group
+            label.form__label(for='review') Agrega un comentario sobre el tour
+            textarea#review.form__input(name='review', rows='2', placeholder='Escribe tu comentario aquí...', required)
+          .form__group.right
+            button.btn.btn--azul.btn--pequeno(type='submit') Subir comentario
+      .cta__botones
         button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Comprar excursión
-      else
-        a.btn.btn--green.span-all-rows(href='/login') Inicia sesión para comprar
+        button.btn.btn--yellow.btn--favorite#favorite-tour(data-tour-id=`${tour.id}`) Añadir a favoritos
+    else
+      a.btn.btn--green.span-all-rows(href='/login') Inicia sesión para comprar
+
+  // Reseñas de usuarios
+  .reviews-box
+    h3.reviews-title Reseñas de usuarios
+    if tour.reviews.length === 0
+      p.no-reviews Aún no hay reseñas para este tour.
+    else
+      .reviews-list
+        each review in tour.reviews
+          .review-card
+            .review-card__header
+              .review-card__avatar
+                img.review-card__img(src=`/img/users/${review.user.photo}`, alt=`${review.user.name}`)
+              h3.review-card__user= review.user.name
+              .review-card__rating
+                | &#9733; #{review.rating}
+            p.review-card__text= review.review
+block scripts
+  script(type='module', src='/js/favorites.js')

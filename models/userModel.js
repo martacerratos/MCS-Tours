@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Confirma tu contraseña'],
     validate: {
-      validator: function(el) {
+      validator: function (el) {
         return el === this.password;
       },
       message: 'Las contraseñas no coinciden'
@@ -44,10 +44,16 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     select: false
-  }
+  },
+  favorites: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Tour'
+    }
+  ]
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   // Si la contraseña es modificada
   if (!this.isModified('password')) return next();
 
@@ -59,7 +65,7 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;
@@ -67,19 +73,19 @@ userSchema.pre('save', function(next) {
 });
 
 // Al buscar a los usuarios, no enseña los que no están activos
-userSchema.pre(/^find/, function(next) {
+userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
 
-userSchema.methods.correctPassword = async function(
+userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
@@ -92,7 +98,7 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   return false;
 };
 
-userSchema.methods.createPasswordResetToken = function() {
+userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
   this.passwordResetToken = crypto

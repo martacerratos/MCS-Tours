@@ -17,9 +17,9 @@ const multerFilter = (req, file, cb) => {
 };
 
 // Configuro la subida de archivos
-const upload = multer({ 
+const upload = multer({
   storage: multerStorage,
-  fileFilter: multerFilter 
+  fileFilter: multerFilter
 });
 
 exports.uploadUserPhoto = upload.single('photo');
@@ -28,16 +28,16 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
 
   // guardo en el cuerpo de la peticion un nombre nuevo de la imagen
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`; 
+  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
   // Proceso la imagen
   await sharp(req.file.buffer)
     .resize(500, 500) // redimensiono
     .toFormat('jpeg') // cambio el formato 
     .jpeg({ quality: 90 }) // le bajo la calidad al 90%
-    .toFile(`public/img/users/${req.file.filename}`); 
+    .toFile(`public/img/users/${req.file.filename}`);
 
-    next();
+  next();
 });
 
 const filterObj = (obj, ...allowedFields) => {
@@ -91,6 +91,23 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.toggleFavorite = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const tourId = req.params.tourId;
+  const index = user.favorites.indexOf(tourId);
+
+  if (index === -1) {
+    user.favorites.push(tourId); // Añadir a favoritos
+  } else {
+    user.favorites.splice(index, 1); // Quitar de favoritos si ya estaba
+  }
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    status: 'success',
+    favorites: user.favorites
+  });
+});
 
 exports.createUser = (req, res) => {
   res.status(500).json({

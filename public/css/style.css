@@ -1008,3 +1008,208 @@ a.btn.btn--green {
 }
 
 /* #endregion login */
+
+/* #region reserva tour */
+.mensaje-vacio {
+  text-align: center;
+  margin: 3rem 0;
+  color: #2d3a4b;
+}
+
+.mensaje-vacio h3 {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+.mensaje-vacio p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+/* #boton favorito */
+.btn--yellow {
+  background: #ffd600;
+  color: #333333;
+  border: none;
+  font-weight: 700;
+  border-radius: 1rem;
+  padding: 0.5rem 1.2rem;
+  margin-left: 0.7rem;
+  transition: background 0.2s;
+}
+
+.btn--yellow:hover {
+  background: #ffb300;
+}
+
+.btn--favorite {
+  font-size: 1rem;
+  padding: 1rem 1rem;
+  letter-spacing: 0.03em;
+}
+
+.cta__botones {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+/* #region boton de eliminar de favoritos*/
+.btn--rojo.btn--remove-favorite {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-weight: 400;
+  /* Cambiado a normal */
+  margin-top: 0.7rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.08);
+}
+
+.btn--rojo.btn--remove-favorite:hover {
+  background: #ff6f61;
+  /* Rojo más claro */
+  transform: scale(1.05);
+}
+
+.btn--azul.btn--conoce-mas {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0.7rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn--azul.btn--conoce-mas:hover {
+  background: #7ccdfc;
+  transform: scale(1.05);
+}
+
+/* Comentario box encima de los botones */
+.comentario-box {
+  width: 100%;
+  background: #f7fafd;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(30, 136, 229, 0.06);
+  padding: 1.2rem 1.5rem 0.5rem 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.comentario-box .form__group {
+  margin-bottom: 0.7rem;
+}
+
+.comentario-box textarea.form__input {
+  min-height: 60px;
+  resize: vertical;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #bbdefb;
+  background: #fff;
+}
+
+.comentario-box button[type="submit"] {
+  margin-top: 0.5rem;
+}
+
+/* Reseñas de usuarios debajo de los botones */
+.reviews-box {
+  width: 100%;
+  margin-top: 2.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(30, 136, 229, 0.06);
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+}
+
+.reviews-title {
+  font-size: 1.3rem;
+  color: #1976d2;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.no-reviews {
+  color: #888;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.review-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #f4faff;
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 4px rgba(30, 136, 229, 0.04);
+  padding: 1rem 1.2rem;
+}
+
+.review-card__avatar {
+  flex-shrink: 0;
+}
+
+.review-card__img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #60a5fa;
+}
+
+.review-card__user {
+  font-weight: 600;
+  color: #1976d2;
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
+}
+
+.review-card__rating {
+  color: #ffd600;
+  font-size: 1.1rem;
+  margin-left: 0.7rem;
+}
+
+.review-card__text {
+  color: #444;
+  font-size: 1rem;
+  margin-top: 0.2rem;
+}
+
+/* Haz que los contenedores de comentarios ocupen el 100% del main */
+.comentario-box,
+.reviews-box {
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cta__botones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}

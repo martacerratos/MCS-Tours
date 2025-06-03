@@ -3,6 +3,7 @@ const Booking = require('../models/bookingModel');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const Review = require('../models/reviewModel');
 
 // Obtiene todos los tours y renderiza la vista de overview
 exports.getOverview = catchAsync(async (req, res) => {
@@ -84,5 +85,24 @@ exports.getAdminTours = catchAsync(async (req, res) => {
     res.status(200).render('admin-tours', {
         title: 'Gestión de excursiones',
         tours
+    });
+});
+// Renderiza la vista de gestión de usuarios para administradores
+exports.getFavorites = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user.id).populate('favorites');
+    res.status(200).render('favorites', {
+        title: 'Mis favoritos',
+        tours: user.favorites,
+        user: req.user
+    });
+});
+
+// Renderiza la vista de gestión de reseñas del usuario autenticado
+exports.getMyReviews = catchAsync(async (req, res, next) => {
+    const reviews = await Review.find({ user: req.user.id }).populate('tour');
+    res.status(200).render('my-reviews', {
+        title: 'Mis reseñas',
+        reviews,
+        user: req.user
     });
 });

@@ -13,8 +13,9 @@ block content
       nav.user-view__menu
         ul.side-nav
           +navItem('#', 'Ajustes', 'ajustes', true)
-          +navItem('/my-tours', 'Mis reservas', 'reserva')
-          +navItem('#', 'Mis reseñas', 'reseñas')
+          +navItem('/my-tours', 'Mis compras', 'reserva')
+          +navItem('/favorites', 'Favoritos', 'estrella')
+          +navItem('/my-reviews', 'Mis reseñas', 'reseñas')
 
         - if (user.role === 'admin')
           .admin-nav
@@ -22,7 +23,6 @@ block content
             ul.side-nav
               +navItem('/admin-tours', 'Excursiones', 'admin-tours')
               +navItem('#', 'Usuarios', 'admin-users')
-              +navItem('#', 'Reseñas', 'admin-reviews')
 
       .user-view__content
         .user-view__form-container

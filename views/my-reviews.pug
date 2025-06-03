@@ -1,0 +1,21 @@
+extends base
+
+block content
+  main.principal
+    if reviews.length === 0
+      .mensaje-vacio
+        h3 No has escrito ninguna reseña todavía.
+        p ¡Reserva un tour y cuéntanos tu experiencia!
+        a.btn.btn--green(href='/') Ver excursiones
+    else
+      .reviews-list
+        each review in reviews
+          .review-card
+            .review-card__header
+              .review-card__avatar
+                img.review-card__img(src=`/img/users/${user.photo}`, alt=`${user.name}`)
+              h3.review-card__user= user.name
+              .review-card__rating
+                | &#9733; #{review.rating}
+              span.review-card__tour= review.tour.name
+            p.review-card__text= review.review

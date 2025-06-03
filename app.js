@@ -22,7 +22,7 @@ const app = express();
 
 // Permite que el frontend y el backend se comuniquen
 app.use(cors({
-  origin: 'https://mcs-tours-production.up.railway.app',
+  origin: 'http://localhost:3000',
   credentials: true // Permite el envío de cookies entre dominios
 }));
 

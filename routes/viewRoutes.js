@@ -10,6 +10,7 @@ router.get('/tour/:slug', authController.isLoggedIn, authController.protect, vie
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get('/signup', viewsController.getSignupForm);
+router.get('/favorites', authController.protect, viewsController.getFavorites);
 router.get(
     '/add-tour',
     authController.isLoggedIn,
@@ -19,5 +20,6 @@ router.get(
 );
 router.get('/admin-tours', authController.isLoggedIn, authController.protect, authController.restrictTo('admin', 'lead-guide'), viewsController.getAdminTours);
 router.get('/my-tours', authController.isLoggedIn, authController.protect, viewsController.getMyTours);
+router.get('/my-reviews', authController.protect, viewsController.getMyReviews);
 
 module.exports = router;

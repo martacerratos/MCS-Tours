@@ -1,0 +1,45 @@
+extends base
+
+block content
+  main.principal
+    if tours.length === 0
+      .mensaje-vacio
+        h3 No tienes ningún tour en favoritos.
+        p Explora nuestras excursiones y añade tus favoritas.
+        a.btn.btn--green(href='/') Ver excursiones
+    else
+      .tarjetas-contenedor
+        each tour in tours
+          .tarjeta
+            .tarjeta-encabezado
+              .tarjeta__imagen
+                .tarjeta__imagen-overlay &nbsp;
+                img.tarjeta__imagen-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+              h3.titulo-terciario
+                span= tour.name
+            .tarjeta__detalles
+              - const dificultadES = tour.difficulty === 'easy' ? 'Fácil' : tour.difficulty === 'medium' ? 'Media' : tour.difficulty === 'difficult' ? 'Difícil' : tour.difficulty
+              h4.tarjeta__subtitulo !{`Dificultad: ${dificultadES} <br> Duración: ${tour.duration} días`}
+              p.tarjeta__texto= tour.summary
+              .tarjeta__dato
+                img.tarjeta__icono(src='/img/icons/calendario.png', alt='calendario')
+                if tour.startDates && tour.startDates.length > 0
+                  span= tour.startDates[0].toLocaleString('es-ES', {month: 'long', year: 'numeric'})
+                else
+                  span No disponible
+              .tarjeta__dato
+                img.tarjeta__icono(src='/img/icons/personas.png', alt='personas')
+                span= `${tour.maxGroupSize} personas`
+            .tarjeta__pie
+              p
+                span.tarjeta__pie-valor= `${tour.price}€`
+                | 
+                span.tarjeta__pie-texto por persona 
+              p.tarjeta__valoraciones 
+                span.tarjeta__pie-valor= tour.ratingsAverage 
+                | 
+                span.tarjeta__pie-texto= `estrellas (${tour.ratingsQuantity} valoraciones)`
+              a.btn.btn--azul.btn--conoce-mas.btn--pequeno.tarjeta__boton(href=`/tour/${tour.slug}`) Conoce más
+              button.btn.btn--rojo.btn--remove-favorite(data-tour-id=`${tour._id}`) Quitar de favoritos
+block scripts
+  script(type='module', src='/js/favorites.js')
